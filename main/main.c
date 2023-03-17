@@ -32,15 +32,15 @@ void app_main(void) {
     uint32_t voltage = esp_adc_cal_raw_to_voltage(adc_reading, adc_chars);
     if (voltage < 830 && voltage > 810) {
       vTaskDelay(400 / portTICK_PERIOD_MS);
-      ESP_LOGI(TAG, "按下DC按钮: %d, Current voltage: %d", dc_time++, voltage);
+      ESP_LOGI(TAG, "DC Keydown: %d, Current voltage: %d", dc_time++, voltage);
     }
     if (voltage < 620 && voltage > 590) {
       vTaskDelay(400 / portTICK_PERIOD_MS);
-      ESP_LOGI(TAG, "按下AC按钮: %d, Current voltage: %d", ac_time++, voltage);
+      ESP_LOGI(TAG, "AC Keydown: %d, Current voltage: %d", ac_time++, voltage);
     }
     if (voltage < 320 && voltage > 290) {
       vTaskDelay(400 / portTICK_PERIOD_MS);
-      ESP_LOGI(TAG, "按下USB按钮: %d, Current voltage: %d", usb_time++,
+      ESP_LOGI(TAG, "USB Keydown: %d, Current voltage: %d", usb_time++,
                voltage);
     }
     vTaskDelay(20 / portTICK_PERIOD_MS);
