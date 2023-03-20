@@ -42,6 +42,7 @@ esp_err_t buzzer_once(uint64_t time_us) {
   if (ledc_update_duty_err != ESP_OK) {
     return ledc_update_duty_err;
   }
+
   static esp_timer_handle_t handle;
   void callback(void* arg) {
     esp_timer_handle_t* timer = arg;
@@ -49,6 +50,7 @@ esp_err_t buzzer_once(uint64_t time_us) {
     ESP_ERROR_CHECK(esp_timer_delete(*timer));
   }
 
-  set_timeout("buzzer_once", callback, &handle, &handle, time_us);
+  ESP_ERROR_CHECK(
+      set_timeout("buzzer_once", callback, &handle, &handle, time_us));
   return ESP_OK;
 }
