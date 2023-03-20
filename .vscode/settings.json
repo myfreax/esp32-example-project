@@ -13,7 +13,13 @@
     "complex": "c",
     "cstring": "cpp",
     "system_error": "c",
-    "*.inc": "c"
+    "*.inc": "c",
+    "sdkconfig.h": "c",
+    "esp_sleep.h": "c",
+    "esp_err.h": "c",
+    "adc_types.h": "c",
+    "task.h": "c",
+    "buzzer.h": "c"
   },
   "idf.flashType": "UART"
 }
