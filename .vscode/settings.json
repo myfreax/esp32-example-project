@@ -19,7 +19,11 @@
     "esp_err.h": "c",
     "adc_types.h": "c",
     "task.h": "c",
-    "buzzer.h": "c"
+    "buzzer.h": "c",
+    "cstdint": "cpp",
+    "stdio.h": "c",
+    "timer.h": "c",
+    "typeinfo": "c"
   },
   "idf.flashType": "UART"
 }
