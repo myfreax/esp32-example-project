@@ -5,26 +5,35 @@
 
 #include "sdkconfig.h"
 
-void set_interval(char* name, void* callback, void* callback_params,
-                  esp_timer_handle_t* handle, uint64_t us) {
+esp_err_t set_interval(char* name, void* callback, void* callback_params,
+                       esp_timer_handle_t* handle, uint64_t us) {
+  esp_err_t err;
   const esp_timer_create_args_t args = {
       .callback = callback, .arg = callback_params, .name = name};
-  ESP_ERROR_CHECK(esp_timer_create(&args, handle));
-  ESP_ERROR_CHECK(esp_timer_start_periodic(*handle, us));
+  err = esp_timer_create(&args, handle);
+  if (err != ESP_OK) {
+    return err;
+  }
+  esp_timer_start_periodic(*handle, us);
+  if (err != ESP_OK) {
+    return err;
+  }
+  return ESP_OK;
 }
 
-void set_timeout(char* name, void* callback, void* callback_params,
-                 esp_timer_handle_t* handle, uint64_t us) {
+esp_err_t set_timeout(char* name, void* callback, void* callback_params,
+                      esp_timer_handle_t* handle, uint64_t us) {
+  esp_err_t err;
   const esp_timer_create_args_t args = {
       .callback = callback, .arg = callback_params, .name = name};
-  ESP_ERROR_CHECK(esp_timer_create(&args, handle));
-  ESP_ERROR_CHECK(esp_timer_start_once(*handle, us));
-}
 
-void clear_interval(esp_timer_handle_t timer) {
-  ESP_ERROR_CHECK(esp_timer_delete(timer));
-}
-
-void clear_timeout(esp_timer_handle_t timer) {
-  ESP_ERROR_CHECK(esp_timer_delete(timer));
+  err = esp_timer_create(&args, handle);
+  if (err != ESP_OK) {
+    return err;
+  }
+  err = esp_timer_start_once(*handle, us);
+  if (err != ESP_OK) {
+    return err;
+  }
+  return ESP_OK;
 }
