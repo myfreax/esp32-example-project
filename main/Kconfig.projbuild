@@ -1,0 +1,8 @@
+menu "Project Configuration"
+  orsource "$IDF_PATH/examples/common_components/env_caps/$IDF_TARGET/Kconfig.env_caps"
+  config DEBUG_MODE
+    bool "Enable debug mode"
+    default y
+    help
+      It will print debug Log
+endmenu
