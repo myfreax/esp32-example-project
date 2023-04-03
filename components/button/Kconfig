@@ -4,5 +4,5 @@ menu "Button Configuration"
     bool "Enable Button"
     default y
     help
-      It will print debug Log
+      Enable or disable button
 endmenu
