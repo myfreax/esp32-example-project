@@ -1,4 +1,5 @@
 #pragma once
+#include "esp_err.h"
 #define BUZZER_PIN 46
 
 esp_err_t buzzer_config(int BUZZER_GPIO);

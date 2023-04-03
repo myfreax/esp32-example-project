@@ -1,11 +1,7 @@
-#include <math.h>
-#include <stdio.h>
-
 #include "driver/ledc.h"
 #include "esp_err.h"
-#include "esp_log.h"
 #include "esp_timer.h"
-#include "timer/timer.h"
+#include "timer.h"
 
 esp_err_t buzzer_config(int buzzer_pin) {
   ledc_timer_config_t timer = {.speed_mode = LEDC_LOW_SPEED_MODE,

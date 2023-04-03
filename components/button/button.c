@@ -1,14 +1,14 @@
+#include "buzzer.h"
 #include "driver/adc.h"
-
-#include "adc.h"
-#include "buzzer/buzzer.h"
+#include "esp_adc_cal.h"
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "led/led.h"
+#include "led.h"
+
 static const char* TAG = "ADC";
 
-void adc_button_task(void* arg) {
+void button_task(void* arg) {
   // init adc
   ESP_ERROR_CHECK(adc1_config_width(ADC_WIDTH_BIT_12));
   ESP_ERROR_CHECK(adc1_config_channel_atten(ADC_CHANNEL_0, ADC_ATTEN_DB_0));
@@ -30,10 +30,9 @@ void adc_button_task(void* arg) {
     }
     adc_reading /= 64;
     uint32_t voltage = esp_adc_cal_raw_to_voltage(adc_reading, adc_chars);
-    if (voltage < 830 && voltage > 810) {
-      vTaskDelay(400 / portTICK_PERIOD_MS);
-      ESP_LOGI(TAG, "DC Button State: %d, Current voltage: %d", dc_button_state,
-               voltage);
+    // ESP_LOGI(TAG, "Voltage: %d", voltage);
+    if (voltage < 820 && voltage > 802) {
+      vTaskDelay(200 / portTICK_PERIOD_MS);
       if (dc_button_state == 0) {
         dc_button_state = 1;
       } else {
@@ -41,11 +40,11 @@ void adc_button_task(void* arg) {
       }
       ESP_ERROR_CHECK(gpio_set_level(LED_DC_PIN, dc_button_state));
       ESP_ERROR_CHECK(buzzer_once(100 * 1000));
-    }
-    if (voltage < 620 && voltage > 590) {
-      vTaskDelay(400 / portTICK_PERIOD_MS);
-      ESP_LOGI(TAG, "AC Button State: %d, Current voltage: %d", ac_key_state,
+      ESP_LOGI(TAG, "DC Button State: %d, Current voltage: %d", dc_button_state,
                voltage);
+    }
+    if (voltage < 758 && voltage > 576) {
+      vTaskDelay(200 / portTICK_PERIOD_MS);
       if (ac_key_state == 0) {
         ac_key_state = 1;
       } else {
@@ -53,11 +52,11 @@ void adc_button_task(void* arg) {
       }
       ESP_ERROR_CHECK(gpio_set_level(LED_AC_PIN, ac_key_state));
       ESP_ERROR_CHECK(buzzer_once(100 * 1000));
-    }
-    if (voltage < 320 && voltage > 290) {
-      vTaskDelay(400 / portTICK_PERIOD_MS);
-      ESP_LOGI(TAG, "USB Button State: %d, Current voltage: %d", usb_key_state,
+      ESP_LOGI(TAG, "AC Button State: %d, Current voltage: %d", ac_key_state,
                voltage);
+    }
+    if (voltage < 320 && voltage > 289) {
+      vTaskDelay(200 / portTICK_PERIOD_MS);
       if (usb_key_state == 0) {
         usb_key_state = 1;
       } else {
@@ -65,7 +64,9 @@ void adc_button_task(void* arg) {
       }
       ESP_ERROR_CHECK(gpio_set_level(LED_USB_PIN, usb_key_state));
       ESP_ERROR_CHECK(buzzer_once(100 * 1000));
+      ESP_LOGI(TAG, "USB Button State: %d, Current voltage: %d", usb_key_state,
+               voltage);
     }
-    vTaskDelay(20 / portTICK_PERIOD_MS);
+    vTaskDelay(100 / portTICK_PERIOD_MS);
   }
 }

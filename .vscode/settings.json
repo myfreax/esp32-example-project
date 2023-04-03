@@ -23,7 +23,13 @@
     "cstdint": "cpp",
     "stdio.h": "c",
     "timer.h": "c",
-    "typeinfo": "c"
+    "typeinfo": "c",
+    "array": "c",
+    "string": "c",
+    "string_view": "c",
+    "esp_timer.h": "c",
+    "led.h": "c",
+    "esp_log.h": "c"
   },
   "idf.flashType": "UART"
 }
