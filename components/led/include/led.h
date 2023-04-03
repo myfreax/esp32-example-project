@@ -1,5 +1,6 @@
 #pragma once
 
+#include "driver/gpio.h"
 #define LED_USB_PIN 48
 #define LED_AC_PIN 38
 #define LED_DC_PIN 40
