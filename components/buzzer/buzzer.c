@@ -1,6 +1,5 @@
 #include "driver/ledc.h"
 #include "esp_err.h"
-#include "esp_timer.h"
 #include "timer.h"
 
 esp_err_t buzzer_config(int buzzer_pin) {

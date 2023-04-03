@@ -1,4 +1,3 @@
-
 #include "driver/gpio.h"
 
 esp_err_t led_config(uint64_t pin_bit_mask) {

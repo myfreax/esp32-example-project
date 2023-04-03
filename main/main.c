@@ -18,7 +18,7 @@ void app_main(void) {
   xTaskCreate(button_task, "button_task", 2048, NULL, 10, NULL);
 
   while (1) {
-    // ESP_LOGI(TAG, "Main Thread Task");
-    vTaskDelay(10 / portTICK_PERIOD_MS);
+    ESP_LOGI(TAG, "Main Thread Task");
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
   }
 }

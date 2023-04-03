@@ -1,7 +1,5 @@
 #include "timer.h"
 
-#include "sdkconfig.h"
-
 esp_err_t set_interval(char* name, void* callback, void* callback_params,
                        esp_timer_handle_t* handle, uint64_t us) {
   esp_err_t err;

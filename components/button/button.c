@@ -52,8 +52,8 @@ void button_task(void* arg) {
       }
       ESP_ERROR_CHECK(gpio_set_level(LED_AC_PIN, ac_key_state));
       ESP_ERROR_CHECK(buzzer_once(100 * 1000));
-      ESP_LOGI(TAG, "AC Button State: %d, Current voltage: %d", ac_key_state,
-               voltage);
+      ESP_LOGI(TAG, "AC Button State: %s, Current voltage: %d",
+               ac_key_state ? "On" : "Off", voltage);
     }
     if (voltage < 320 && voltage > 289) {
       vTaskDelay(200 / portTICK_PERIOD_MS);
