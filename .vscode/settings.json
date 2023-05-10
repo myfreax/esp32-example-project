@@ -29,7 +29,10 @@
     "string_view": "c",
     "esp_timer.h": "c",
     "led.h": "c",
-    "esp_log.h": "c"
+    "esp_log.h": "c",
+    "random": "c",
+    "button_driver.h": "c",
+    "button.h": "c"
   },
   "idf.flashType": "UART"
 }
