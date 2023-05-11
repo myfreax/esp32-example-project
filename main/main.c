@@ -26,8 +26,7 @@ void app_main(void) {
   button_config_t* buttons[3] = {usb_button, ac_button, dc_button};
 
   button_driver_config_t* button_driver_config = button_driver_config_create(
-      buttons, sizeof(buttons) / sizeof(button_config_t*), false,
-      ADC1_CHANNEL_0);
+      buttons, sizeof(buttons) / sizeof(button_config_t*), ADC1_CHANNEL_0);
 
   button_driver_install(button_driver_config);
 
