@@ -5,13 +5,14 @@
 #include "freertos/task.h"
 const static char* TAG = "BUTTON DRIVER";
 
-button_config_t* button_create(unsigned int min_vol, unsigned int max_vol,
+button_config_t* button_create(unsigned int min_voltage,
+                               unsigned int max_voltage,
                                button_callback_t press,
                                button_callback_t lift) {
   button_config_t* button = malloc(sizeof(button_config_t));
   button->state = false;
-  button->min_vol = min_vol;
-  button->max_vol = max_vol;
+  button->min_voltage = min_voltage;
+  button->max_voltage = max_voltage;
   button->press = press;
   button->lift = lift;
   return button;
@@ -43,7 +44,7 @@ void button_task(void* arg) {
     }
     for (unsigned char i = 0; i < config->total; i++) {
       button_config_t* button = config->buttons[i];
-      if (voltage < button->max_vol && voltage > button->min_vol) {
+      if (voltage < button->max_voltage && voltage > button->min_voltage) {
         button->state = true;
         button->press();
       } else {

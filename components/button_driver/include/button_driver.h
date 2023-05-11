@@ -6,8 +6,8 @@ typedef void (*button_callback_t)();
 
 typedef struct {
   bool state;
-  unsigned int max_vol;
-  unsigned int min_vol;
+  unsigned int max_voltage;
+  unsigned int min_voltage;
   button_callback_t press;
   button_callback_t lift;
 } button_config_t;
@@ -30,5 +30,5 @@ button_driver_config_t* button_driver_config_create(button_config_t** buttons,
                                                     bool debug,
                                                     adc1_channel_t adc_channel);
 
-button_config_t* button_create(unsigned int min_vol, unsigned int max_vol,
+button_config_t* button_create(unsigned int min_voltage, unsigned int max_voltage,
                                button_callback_t press, button_callback_t lift);
