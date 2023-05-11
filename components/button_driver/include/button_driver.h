@@ -19,7 +19,6 @@ typedef struct {
 } buttons_config_t;
 
 typedef struct {
-  bool debug;
   adc_channel_t channel;
   buttons_config_t* buttons_config;
 } button_driver_config_t;
@@ -28,7 +27,6 @@ void button_driver_install(button_driver_config_t* button_driver_config);
 
 button_driver_config_t* button_driver_config_create(button_config_t** buttons,
                                                     unsigned char total,
-                                                    bool debug,
                                                     adc1_channel_t adc_channel);
 
 button_config_t* button_create(unsigned int min_voltage,

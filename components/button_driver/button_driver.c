@@ -4,7 +4,9 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "time.h"
+#ifdef CONFIG_BUTTON_DRIVER_DEBUG
 const static char* TAG = "BUTTON DRIVER";
+#endif
 
 button_config_t* button_create(unsigned int min_voltage,
                                unsigned int max_voltage,
@@ -20,14 +22,13 @@ button_config_t* button_create(unsigned int min_voltage,
 }
 
 button_driver_config_t* button_driver_config_create(
-    button_config_t** buttons, unsigned char total, bool debug,
+    button_config_t** buttons, unsigned char total,
     adc1_channel_t adc_channel) {
   buttons_config_t* buttons_config = malloc(sizeof(buttons_config_t));
   buttons_config->total = total;
   buttons_config->buttons = buttons;
   button_driver_config_t* button_driver_config =
       malloc(sizeof(button_driver_config_t));
-  button_driver_config->debug = debug;
   button_driver_config->buttons_config = buttons_config;
   button_driver_config->channel = adc_channel;
   return button_driver_config;
@@ -41,9 +42,9 @@ void button_task(void* arg) {
   struct timeval tv_now;
   while (1) {
     uint32_t voltage = adc_voltage(button_driver_config->channel, adc_chars);
-    if (button_driver_config->debug) {
-      ESP_LOGI(TAG, "Voltage: %d", voltage);
-    }
+#ifdef CONFIG_BUTTON_DRIVER_DEBUG
+    ESP_LOGI(TAG, "Voltage: %d", voltage);
+#endif
     for (unsigned char i = 0; i < config->total; i++) {
       button_config_t* button = config->buttons[i];
       if (voltage < button->max_voltage && voltage > button->min_voltage) {
