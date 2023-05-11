@@ -13,8 +13,11 @@
 static const char* TAG = "ADC";
 
 void app_main(void) {
-  ESP_ERROR_CHECK(led_config(LED_PIN_MASK));
-  ESP_ERROR_CHECK(buzzer_config(BUZZER_PIN));
+  ESP_ERROR_CHECK(led_config(1ULL << CONFIG_LED_USB_PIN |
+                             1ULL << CONFIG_LED_AC_PIN |
+                             1ULL << CONFIG_LED_DC_PIN));
+
+  ESP_ERROR_CHECK(buzzer_config(46));
 
   button_config_t* usb_button =
       button_create(279, 569, &button_usb_press, &button_usb_lift);

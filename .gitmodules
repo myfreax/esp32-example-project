@@ -1,0 +1,18 @@
+[submodule "components/time"]
+	path = components/time
+	url = git@github.com:myfreax/esp32-time.git
+[submodule "components/led"]
+	path = components/led
+	url = git@github.com:myfreax/esp32-led.git
+[submodule "components/adc"]
+	path = components/adc
+	url = git@github.com:myfreax/esp32-adc.git
+[submodule "components/button_driver"]
+	path = components/button_driver
+	url = git@github.com:myfreax/esp32-adc-button.git
+[submodule "components/timer"]
+	path = components/timer
+	url = git@github.com:myfreax/esp32-timer.git
+[submodule "components/buzzer"]
+	path = components/buzzer
+	url = git@github.com:myfreax/esp32-buzzer.git
