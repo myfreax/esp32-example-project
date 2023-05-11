@@ -3,6 +3,7 @@
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "time.h"
 const static char* TAG = "BUTTON DRIVER";
 
 button_config_t* button_create(unsigned int min_voltage,
@@ -10,7 +11,7 @@ button_config_t* button_create(unsigned int min_voltage,
                                button_callback_t press,
                                button_callback_t lift) {
   button_config_t* button = malloc(sizeof(button_config_t));
-  button->state = false;
+  button->press_time = 0;
   button->min_voltage = min_voltage;
   button->max_voltage = max_voltage;
   button->press = press;
@@ -37,6 +38,7 @@ void button_task(void* arg) {
   buttons_config_t* config = button_driver_config->buttons_config;
   esp_adc_cal_characteristics_t* adc_chars =
       adc_config(button_driver_config->channel);
+  struct timeval tv_now;
   while (1) {
     uint32_t voltage = adc_voltage(button_driver_config->channel, adc_chars);
     if (button_driver_config->debug) {
@@ -45,16 +47,22 @@ void button_task(void* arg) {
     for (unsigned char i = 0; i < config->total; i++) {
       button_config_t* button = config->buttons[i];
       if (voltage < button->max_voltage && voltage > button->min_voltage) {
-        button->state = true;
-        button->press();
+        int64_t time_us = time_currnet_us(&tv_now);
+        if (button->press_time == 0) {
+          button->press(0);
+          button->press_time = time_us;
+        } else {
+          button->press(time_us - button->press_time);
+        }
       } else {
-        if (button->state == true) {
-          button->state = false;
-          button->lift();
+        if (button->press_time != 0) {
+          int64_t time_us = time_currnet_us(&tv_now);
+          button->lift(time_us - button->press_time);
+          button->press_time = 0;
         }
       }
     }
-    vTaskDelay(80 / portTICK_PERIOD_MS);
+    vTaskDelay(20 / portTICK_PERIOD_MS);
   }
 }
 
