@@ -32,7 +32,8 @@
     "esp_log.h": "c",
     "random": "c",
     "button_driver.h": "c",
-    "button.h": "c"
+    "button.h": "c",
+    "time.h": "c"
   },
   "idf.flashType": "UART"
 }
