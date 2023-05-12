@@ -9,3 +9,9 @@ The project demonstrates how to use IDF framework build application  of reusable
 - [ESP32 ADC Component](https://github.com/myfreax/esp32-adc)
 - [ESP32 Buzzer Component](https://github.com/myfreax/esp32-buzzer)
 - [ESP32 time Component](https://github.com/myfreax/esp32-time)
+
+## Build
+```
+git clone --recurse-submodules https://github.com/myfreax/esp32-example-project
+idf.py build
+```
