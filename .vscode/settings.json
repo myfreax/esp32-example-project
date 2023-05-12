@@ -33,7 +33,10 @@
     "random": "c",
     "button_driver.h": "c",
     "button.h": "c",
-    "time.h": "c"
+    "time.h": "c",
+    "stdint.h": "c",
+    "chrono": "c",
+    "ledc.h": "c"
   },
   "idf.flashType": "UART"
 }
