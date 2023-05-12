@@ -10,13 +10,12 @@
 #include "led.h"
 #include "timer.h"
 
-static const char* TAG = "ADC";
+static const char* TAG = "ESP32-EXAMPLE-PROJECT";
 
 void app_main(void) {
   ESP_ERROR_CHECK(led_config(1ULL << CONFIG_LED_USB_PIN |
                              1ULL << CONFIG_LED_AC_PIN |
                              1ULL << CONFIG_LED_DC_PIN));
-
   ESP_ERROR_CHECK(buzzer_config(46));
 
   button_config_t* usb_button =
