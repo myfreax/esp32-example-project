@@ -18,19 +18,20 @@ void app_main(void) {
                              1ULL << CONFIG_LED_DC_PIN));
   ESP_ERROR_CHECK(buzzer_config(46));
 
-  button_config_t* usb_button =
-      button_create(279, 569, &button_usb_press, &button_usb_lift);
+  unsigned char custom_parameter = 1;
+  button_config_t* usb_button = button_create(
+      0, 279, 569, &button_usb_press, &button_usb_lift, &custom_parameter);
   button_config_t* ac_button =
-      button_create(569, 586, &button_ac_press, &button_ac_lift);
+      button_create(1, 569, 586, &button_ac_press, &button_ac_lift, NULL);
   button_config_t* dc_button =
-      button_create(789, 802, &button_dc_press, &button_dc_lift);
+      button_create(1, 789, 802, NULL, &button_dc_lift, NULL);
 
   button_config_t* buttons[3] = {usb_button, ac_button, dc_button};
 
   button_driver_config_t* button_driver_config = button_driver_config_create(
       buttons, sizeof(buttons) / sizeof(button_config_t*), ADC1_CHANNEL_0);
 
-  button_driver_install(button_driver_config);
+  button_driver_install(button_driver_config, 2048);
 
   while (1) {
     ESP_LOGI(TAG, "Main Thread Task");

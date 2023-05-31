@@ -36,7 +36,9 @@
     "time.h": "c",
     "stdint.h": "c",
     "chrono": "c",
-    "ledc.h": "c"
+    "ledc.h": "c",
+    "memory": "c",
+    "*.ipp": "c"
   },
   "idf.flashType": "UART"
 }
